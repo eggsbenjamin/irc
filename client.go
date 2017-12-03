@@ -36,7 +36,7 @@ type Client interface {
 
 // client is an implementation of the Client interface.
 type client struct {
-	host, port    string
+	host          string
 	conn          net.Conn
 	replyHandlers map[int]HandleFunc
 	cmdHandlers   map[string]HandleFunc
@@ -110,16 +110,18 @@ func (c *client) ReadFrom(in io.Reader) (int64, error) {
 			return int64(count), err
 		}
 		count += len(line)
-		c.Write(append(line, '\r', '\n'))
+		if _, err := c.Write(append(line, '\r', '\n')); err != nil {
+			return int64(count), err
+		}
 	}
 }
 
-// Write sends a stream of bytes to the irc server.
+// Write writes to the connection to the irc server.
 func (c *client) Write(b []byte) (n int, err error) {
 	return c.conn.Write(b)
 }
 
-// Close closes a connection to the irc server.
+// Close closes the connection to the irc server.
 func (c *client) Close() error {
 	return c.conn.Close()
 }
