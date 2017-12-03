@@ -161,7 +161,7 @@ const (
 	ISON     = "ISON"     // Determine if a nickname is currently on IRC.
 	JOIN     = "JOIN"     // Join a channel.
 	KICK     = "KICK"     // Request the forced removal of a user from a channel.
-	KILL     = "KILL"     // Close a client-server connection by the server which has the actual
+	KILL     = "KILL"     // Close a client-server connection by the server which has the actual connection.
 	LINKS    = "LINKS"    // List all servernames which are known by the server answering the query.
 	LIST     = "LIST"     // List channels and their topics.
 	LUSERS   = "LUSERS"   // Get statistics about the size of the IRC network.
@@ -176,7 +176,7 @@ const (
 	PASS     = "PASS"     // Set a connection password.
 	PING     = "PING"     // Test for the presence of an active client or server.
 	PONG     = "PONG"     // Reply to a PING message.
-	PRIVMSG  = "PRIVMSG"  // Send private messages between users, as well as to send messages to
+	PRIVMSG  = "PRIVMSG"  // Send private messages between users, as well as to send messages to channels.
 	QUIT     = "QUIT"     // Terminate the client session.
 	REHASH   = "REHASH"   // Force the server to re-read and process its configuration file.
 	RESTART  = "RESTART"  // Force the server to restart itself.

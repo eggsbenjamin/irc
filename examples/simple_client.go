@@ -22,12 +22,15 @@ func main() {
 		client.Cmd(irc.PONG, "I'm here!")
 	})
 
-	// set nickname and username.
-	nick, user := os.Getenv("IRC_NICK"), os.Getenv("IRC_USER")
+	// enter nickname, username and optionally a password.
+	nick, user, pwd := os.Getenv("IRC_NICK"), os.Getenv("IRC_USER"), os.Getenv("IRC_PWD")
 	if err := client.Cmd(irc.NICK, nick); err != nil {
 		log.Fatal(err)
 	}
 	if err := client.Cmd(irc.USER, user, "0 *:", user); err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Cmd(irc.PASS, pwd); err != nil {
 		log.Fatal(err)
 	}
 
