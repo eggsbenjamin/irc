@@ -74,7 +74,7 @@ func TestParseMessage(t *testing.T) {
 
 	for _, v := range tests {
 		t.Run(v.title, func(t *testing.T) {
-			actual, err := ParseEvent(v.input)
+			actual, err := parseEvent(v.input)
 
 			require.NoError(t, err)
 			require.Equal(t, v.expected, actual)

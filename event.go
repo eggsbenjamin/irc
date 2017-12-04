@@ -26,8 +26,8 @@ func (r *Event) IsReply() bool {
 	return r.Code != 0
 }
 
-// ParseEvent parses a line sent by an irc server into an Event.
-func ParseEvent(raw []byte) (*Event, error) {
+// parseEvent parses a line sent by an irc server into an Event.
+func parseEvent(raw []byte) (*Event, error) {
 	segments := strings.Split(string(raw), " ")
 	if len(segments) < 2 {
 		return nil, fmt.Errorf("invalid reply format : '%s'", raw)

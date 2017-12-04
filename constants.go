@@ -1,6 +1,6 @@
 package irc
 
-// irc connection response codes.
+// irc connection reply codes.
 const (
 	RPL_WELCOME  = 1 // "Welcome to the Internet Relay Network <nick>!<user>@<host>"
 	RPL_YOURHOST = 2 // "Your host is <servername>, running version <ver>"
@@ -9,7 +9,7 @@ const (
 	RPL_BOUNCE   = 5 // "Try server <server name>, port <port number>"
 )
 
-// irc command response codes.
+// irc command reply codes.
 const (
 	RPL_TRACELINK       = 200 // "Link <version & debug level> <destination><next server> V<protocol version> <link uptime in seconds><backstream sendq> <upstream sendq>"
 	RPL_TRACECONNECTING = 201 // "Try. <class> <server>"

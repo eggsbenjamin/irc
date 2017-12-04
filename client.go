@@ -28,7 +28,7 @@ type Handler interface {
 type Client interface {
 	Connector
 	Commander
-	io.WriteCloser
+	io.Closer
 	io.ReaderFrom
 	io.WriterTo
 	Handler
@@ -70,7 +70,7 @@ func (c *client) Cmd(name string, params ...string) error {
 	}
 	buf.WriteString("\r\n")
 
-	if _, err := c.Write(buf.Bytes()); err != nil {
+	if _, err := c.send(buf.Bytes()); err != nil {
 		return err
 	}
 
@@ -110,14 +110,14 @@ func (c *client) ReadFrom(in io.Reader) (int64, error) {
 			return int64(count), err
 		}
 		count += len(line)
-		if _, err := c.Write(append(line, '\r', '\n')); err != nil {
+		if _, err := c.send(append(line, '\r', '\n')); err != nil {
 			return int64(count), err
 		}
 	}
 }
 
-// Write writes to the connection to the irc server.
-func (c *client) Write(b []byte) (n int, err error) {
+// send writes to the connection to the irc server.
+func (c *client) send(b []byte) (n int, err error) {
 	return c.conn.Write(b)
 }
 
@@ -131,7 +131,7 @@ type HandleFunc func(msg *Event)
 
 // handleEvent parses a stream of bytes sent from the irc server into an Event and then calls any event handlers listening for that command/reply.
 func (c *client) handleEvent(raw []byte) error {
-	e, err := ParseEvent(raw)
+	e, err := parseEvent(raw)
 	if err != nil {
 		return err
 	}
